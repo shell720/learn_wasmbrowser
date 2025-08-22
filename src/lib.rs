@@ -31,11 +31,11 @@ pub struct Universe{
 #[wasm_bindgen]
 impl Universe{
     pub fn new()-> Universe{
-        let width = 64;
-        let height = 64;
+        let width = 2123;
+        let height = 2123;
 
         let cells = (0..width*height).map(|i| {
-            if i%2==0 || i%7==0{
+            if i%11==0 || i%37==0{
                 Cell::Alive
             } else{
                 Cell::Dead
@@ -78,7 +78,8 @@ impl Universe{
 
     pub fn tick(&mut self){
         let mut next = self.cells.clone();
-
+        let mut cnt = 0;
+        while cnt < 20{
         for y in 0..self.height{
             for x in 0..self.width{
                 let idx = self.get_index(x, y);
@@ -97,6 +98,8 @@ impl Universe{
                 next[idx] = next_cell;
             }
         }
+        cnt+=1
+    }
 
         self.cells = next;
     }
